@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Workout;
 use Illuminate\Http\Request;
 
 class WorkoutController extends Controller
@@ -11,7 +12,9 @@ class WorkoutController extends Controller
      */
     public function index()
     {
-        //
+        // get the Workout Model and put it in a $variable
+        $workouts = Workout::all();
+        return view('workouts.index', compact('workout'));
     }
 
     /**
@@ -19,7 +22,7 @@ class WorkoutController extends Controller
      */
     public function create()
     {
-        //
+        return view('workouts.create');
     }
 
     /**
@@ -27,7 +30,16 @@ class WorkoutController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'exercise' => 'required|string|max:255',
+            'sets' => 'required|integer|min:1',
+            'reps' => 'required|integer|min:1',
+            'weight' => 'nullable|numeric|min:0',
+            'category' => 'required|in:strength,cardio',
+        ]);
+
+        Workout::create($request->all());
+        return redirect()->route('workouts.index');
     }
 
     /**
