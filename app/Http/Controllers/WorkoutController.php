@@ -47,7 +47,7 @@ class WorkoutController extends Controller
      */
     public function show(string $id)
     {
-        //
+        return view('workouts.show', compact('workout'));
     }
 
     /**
@@ -55,7 +55,7 @@ class WorkoutController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        return view('workout.edit', compact('workout'));
     }
 
     /**
