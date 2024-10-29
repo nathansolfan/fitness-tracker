@@ -61,9 +61,18 @@ class WorkoutController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Workout $workout)
     {
-        //
+        $request->validate([
+            'exercise' => 'required|string|max:255',
+            'sets' => 'required|integer|min:1',
+            'reps' => 'required|integer|min:1',
+            'weight' => 'required|numeric|min:0',
+            'category' => 'required|in:strength,cardio'
+        ]);
+
+        $workout->update($request->all());
+        return redirect()->route('workout.index');
     }
 
     /**
