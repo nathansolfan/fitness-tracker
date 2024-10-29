@@ -14,7 +14,7 @@ class WorkoutController extends Controller
     {
         // get the Workout Model and put it in a $variable
         $workouts = Workout::all();
-        return view('workouts.index', compact('workout'));
+        return view('workouts.index', compact('workouts'));
     }
 
     /**
@@ -47,7 +47,7 @@ class WorkoutController extends Controller
      */
     public function show(string $id)
     {
-        return view('workouts.show', compact('workout'));
+        return view('workouts.show', compact('workouts'));
     }
 
     /**
@@ -55,7 +55,7 @@ class WorkoutController extends Controller
      */
     public function edit(string $id)
     {
-        return view('workout.edit', compact('workout'));
+        return view('workout.edit', compact('workouts'));
     }
 
     /**
@@ -72,7 +72,7 @@ class WorkoutController extends Controller
         ]);
 
         $workout->update($request->all());
-        return redirect()->route('workout.index');
+        return redirect()->route('workouts.index');
     }
 
     /**
