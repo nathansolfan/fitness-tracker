@@ -10,6 +10,7 @@
         @foreach($workouts as $workout)
             <li>
                 {{ $workout->exercise }} - {{ $workout->category }}
+                <a href=" {{ route('workouts.show', $workout)}} ">View</a>
                 <a href="{{ route('workouts.edit', $workout) }}">Edit</a>
                 <form action="{{ route('workouts.destroy', $workout) }}" method="POST" style="display:inline;">
                     @csrf

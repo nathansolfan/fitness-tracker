@@ -30,6 +30,7 @@ class WorkoutController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request->all());
         $request->validate([
             'exercise' => 'required|string|max:255',
             'sets' => 'required|integer|min:1',
