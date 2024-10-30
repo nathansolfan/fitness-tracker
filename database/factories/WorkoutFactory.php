@@ -20,7 +20,7 @@ class WorkoutFactory extends Factory
             'exercise' => $this->faker->word,
             'sets' => $this->faker->numberBetween(1,5),
             'reps' => $this->faker->numberBetween(5,15),
-            'weight' => $this->faker->optional()->numberBetween(10,150),
+            'weight' => $this->faker->numberBetween(10,150),
             'category' => $this->faker->randomElement(['strength', 'cardio']),
         ];
     }
