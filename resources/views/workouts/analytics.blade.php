@@ -3,20 +3,27 @@
 <head>
     <title>Workout Analytics</title>
     @vite(['resources/js/app.js'])
+    <style>
+        #weightChart, #categoryChart {
+            max-width: 300px; /* Set a max width to control the chart size */
+            max-height: 300px; /* Set a max height to control the chart size */
+            margin: auto; /* Center the charts */
+        }
+    </style>
 </head>
 <body>
     <h1>Workout Analytics</h1>
 
     {{-- Bar chart for total weight by category --}}
     @if(!empty($totalWeightByCategory) && is_array($totalWeightByCategory) && count($totalWeightByCategory) > 0)
-        <canvas id="weightChart" width="400" height="50"></canvas>
+        <canvas id="weightChart"></canvas>
     @else
         <p>No workout data available to display the analytics chart.</p>
     @endif
 
     {{-- Pie chart for count by category --}}
     @if(!empty($countByCategory) && is_array($countByCategory) && count($countByCategory) > 0)
-        <canvas id="categoryChart" width="400" height="200"></canvas>
+        <canvas id="categoryChart"></canvas>
     @else
         <p>No workout data available to display the category distribution chart.</p>
     @endif
@@ -47,6 +54,8 @@
                                 }]
                             },
                             options: {
+                                maintainAspectRatio: false,
+                                responsive: true,
                                 scales: {
                                     y: {
                                         beginAtZero: true
@@ -86,6 +95,20 @@
                                     ],
                                     borderWidth: 1
                                 }]
+                            },
+                            options: {
+                                maintainAspectRatio: false,
+                                responsive: true,
+                                plugins: {
+                                    legend: {
+                                        position: 'top',
+                                        labels: {
+                                            font: {
+                                                size: 12 // Smaller font size for labels
+                                            }
+                                        }
+                                    }
+                                }
                             }
                         });
                     }

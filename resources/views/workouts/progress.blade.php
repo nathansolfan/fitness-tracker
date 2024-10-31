@@ -6,7 +6,7 @@
 </head>
 <body>
     <h1>{{ $exercise }} Progress Over Time</h1>
-    <canvas id="progressChart" width="400" height="200"></canvas>
+    <canvas id="progressChart" width="600" height="50"></canvas>
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
