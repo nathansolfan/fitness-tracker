@@ -8,8 +8,14 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::get('/', [WorkoutController::class, 'index'])->name('workouts.index');
-Route::resource('workouts', WorkoutController::class);
 
 
 // ANALYTICS Route
 Route::get('/workouts/analytics', [WorkoutController::class, 'analytics'])->name('workouts.analytics');
+
+// Route::get('/workouts/analytics', function () {
+//     dd('Route is working');
+// });
+
+
+Route::resource('workouts', WorkoutController::class);

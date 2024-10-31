@@ -91,14 +91,16 @@ class WorkoutController extends Controller
 
     // ANALYTICS Controller
     public function analytics()
-    {
-        $workouts = Workout::all();
+{
+    $workouts = Workout::all();
 
-        // Example: calculate total weight lifted by exercise type
-        $totalWeightByCategory = $workouts->groupBy('category')->map(function ($group) {
-            return $group->sum('weight');
-        });
-        dd($totalWeightByCategory);
-        return view('workouts.analytics', compact('totalWeightByCategory'));
-    }
+    // Calculate total weight lifted by exercise type
+    $totalWeightByCategory = $workouts->groupBy('category')->map(function ($group) {
+        return $group->sum('weight');
+    });
+
+    // dd($totalWeightByCategory); // This should output something in your browser
+
+    return view('workouts.analytics', compact('totalWeightByCategory'));
+}
 }
