@@ -98,8 +98,12 @@ class WorkoutController extends Controller
             return $group->sum('weight');
         })->toArray();
 
-        // dd($totalWeightByCategory); // This should output something in your browser
-        return view('workouts.analytics', compact('totalWeightByCategory'));
+        // Count of exercises per category for the pie chart
+        $countByCategory = $workouts->groupBy('category')->map(function ($group) {
+            return $group->count();
+        })->toArray();
+
+        return view('workouts.analytics', compact('totalWeightByCategory', 'countByCategory'));
     }
 
 

@@ -12,6 +12,8 @@
                 {{ $workout->exercise }} - {{ $workout->category }}
                 <a href=" {{ route('workouts.show', $workout)}} ">View</a>
                 <a href="{{ route('workouts.edit', $workout) }}">Edit</a>
+                <a href="{{ route('workouts.progress', ['exercise' => $workout->exercise]) }}">View Progress</a>
+
                 <form action="{{ route('workouts.destroy', $workout) }}" method="POST" style="display:inline;">
                     @csrf
                     @method('DELETE')
