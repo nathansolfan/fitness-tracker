@@ -97,7 +97,7 @@ class WorkoutController extends Controller
     // Calculate total weight lifted by exercise type
     $totalWeightByCategory = $workouts->groupBy('category')->map(function ($group) {
         return $group->sum('weight');
-    });
+    })->toArray();
 
     // dd($totalWeightByCategory); // This should output something in your browser
 
