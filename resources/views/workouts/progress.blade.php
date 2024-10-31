@@ -3,10 +3,23 @@
 <head>
     <title>{{ $exercise }} Progress</title>
     @vite(['resources/js/app.js'])
+    <style>
+        #progressChart {
+            max-width: 600px; /* Control the max width of the chart */
+            max-height: 300px; /* Control the max height of the chart */
+            margin: auto; /* Center the chart on the page */
+        }
+    </style>
 </head>
 <body>
     <h1>{{ $exercise }} Progress Over Time</h1>
-    <canvas id="progressChart" width="600" height="50"></canvas>
+
+    {{-- Chart for progress --}}
+    @if(!empty($dates) && !empty($weights) && count($dates) > 0 && count($weights) > 0)
+        <canvas id="progressChart"></canvas>
+    @else
+        <p>No progress data available to display the chart.</p>
+    @endif
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
@@ -30,7 +43,7 @@
                     return;
                 }
 
-                const progressChart = new Chart(ctx, {
+                new Chart(ctx, {
                     type: 'line',
                     data: {
                         labels: labels,
@@ -43,9 +56,21 @@
                         }]
                     },
                     options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
                         scales: {
                             y: {
                                 beginAtZero: true
+                            }
+                        },
+                        plugins: {
+                            legend: {
+                                position: 'top',
+                                labels: {
+                                    font: {
+                                        size: 12 // Smaller font size for labels
+                                    }
+                                }
                             }
                         }
                     }
