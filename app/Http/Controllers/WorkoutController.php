@@ -91,16 +91,36 @@ class WorkoutController extends Controller
 
     // ANALYTICS Controller
     public function analytics()
-{
-    $workouts = Workout::all();
+    {
+        $workouts = Workout::all();
+        // Calculate total weight lifted by exercise type
+        $totalWeightByCategory = $workouts->groupBy('category')->map(function ($group) {
+            return $group->sum('weight');
+        })->toArray();
 
-    // Calculate total weight lifted by exercise type
-    $totalWeightByCategory = $workouts->groupBy('category')->map(function ($group) {
-        return $group->sum('weight');
-    })->toArray();
+        // dd($totalWeightByCategory); // This should output something in your browser
+        return view('workouts.analytics', compact('totalWeightByCategory'));
+    }
 
-    // dd($totalWeightByCategory); // This should output something in your browser
 
-    return view('workouts.analytics', compact('totalWeightByCategory'));
-}
+    public function progress($exercise)
+    {
+        // Get all workouts of the specified exercise and order by date
+        $workouts = Workout::where('exercise', $exercise)->orderBy('created_at', 'asc')->get();
+
+        // Extract data for the chart (dates and weights)
+        $dates = $workouts->pluck('created_at')->map(function ($date) {
+            return $date->format('Y-m-d');
+        })->toArray();
+
+        $weights = $workouts->pluck('weight')->toArray();
+
+        // Return the view with data for the chart
+        return view('workouts.progress', compact('exercise', 'dates', 'weights'));
+
+
+
+
+    }
+
 }
