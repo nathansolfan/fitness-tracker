@@ -17,5 +17,7 @@ Route::get('/workouts/analytics', [WorkoutController::class, 'analytics'])->name
 //     dd('Route is working');
 // });
 
+Route::get('/workouts/progress/{exercise}', [WorkoutController::class,'progress'])->name('workouts.progress');
+
 
 Route::resource('workouts', WorkoutController::class);
