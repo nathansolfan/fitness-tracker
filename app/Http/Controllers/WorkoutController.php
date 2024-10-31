@@ -48,7 +48,8 @@ class WorkoutController extends Controller
      */
     public function show(string $id)
     {
-        return view('workouts.show', compact('workouts'));
+        $workout = Workout::findOrFail($id);
+        return view('workouts.show', compact('workout'));
     }
 
     /**
@@ -56,7 +57,8 @@ class WorkoutController extends Controller
      */
     public function edit(string $id)
     {
-        return view('workout.edit', compact('workouts'));
+        $workout = Workout::findOrFail($id);
+        return view('workouts.edit', compact('workout'));
     }
 
     /**
@@ -96,6 +98,7 @@ class WorkoutController extends Controller
         $totalWeightByCategory = $workouts->groupBy('category')->map(function ($group) {
             return $group->sum('weight');
         });
+        dd($totalWeightByCategory);
         return view('workouts.analytics', compact('totalWeightByCategory'));
     }
 }

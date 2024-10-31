@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>Workout Analytics</title>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    @vite(['resources/js/app.js']) <!-- Use Vite to include your JavaScript -->
 </head>
 <body>
     <h1>Workout Analytics</h1>
