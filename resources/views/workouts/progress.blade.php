@@ -19,6 +19,7 @@
         <canvas id="progressChart"></canvas>
     @else
         <p>No progress data available to display the chart.</p>
+        <p>Banana</p>
     @endif
 
     <script>
