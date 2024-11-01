@@ -16,8 +16,11 @@ class WorkoutFactory extends Factory
      */
     public function definition(): array
     {
+
+        $exercises = ['Bench Press', 'Squat', 'Deadlift', 'Bicep Curl', 'Push Up'];
+
         return [
-            'exercise' => $this->faker->word,
+            'exercise' => $this->faker->randomElement($exercises),
             'sets' => $this->faker->numberBetween(1,5),
             'reps' => $this->faker->numberBetween(5,15),
             'weight' => $this->faker->numberBetween(10,150),
