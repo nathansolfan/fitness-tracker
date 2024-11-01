@@ -3,8 +3,10 @@
         <li>
             <strong>{{ $exercise }}</strong> - {{ $workoutGroup->first()->category }}
             <br>
+            {{--  ->count() displa how many times tat exercise has been logged       --}}
             Total Sessions: {{ $workoutGroup->count() }}
             <br>
+            {{-- 0>last()->weight --}}
             Latest Weight: {{ $workoutGroup->last()->weight }} kg
             <br>
             <a href="{{ route('workouts.progress', ['exercise' => $exercise]) }}">View Progress</a>

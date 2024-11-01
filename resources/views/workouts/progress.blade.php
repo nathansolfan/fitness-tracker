@@ -5,8 +5,8 @@
     @vite(['resources/js/app.js'])
     <style>
         #progressChart {
-            max-width: 600px; /* Control the max width of the chart */
-            max-height: 300px; /* Control the max height of the chart */
+            width: 800px; /* Control the max width of the chart */
+            max-height: 500px; /* Control the max height of the chart */
             margin: auto; /* Center the chart on the page */
         }
     </style>
