@@ -91,20 +91,29 @@ class WorkoutController extends Controller
 
     // ANALYTICS Controller
     public function analytics()
-    {
-        $workouts = Workout::all();
-        // Calculate total weight lifted by exercise type
-        $totalWeightByCategory = $workouts->groupBy('category')->map(function ($group) {
-            return $group->sum('weight');
-        })->toArray();
+{
+    $workouts = Workout::all();
 
-        // Count of exercises per category for the pie chart
-        $countByCategory = $workouts->groupBy('category')->map(function ($group) {
-            return $group->count();
-        })->toArray();
+    // Calculate total weight by category
+    $totalWeightByCategory = $workouts->groupBy('category')->map(function ($group) {
+        return $group->sum('weight');
+    })->toArray();
 
-        return view('workouts.analytics', compact('totalWeightByCategory', 'countByCategory'));
-    }
+    // Count exercises by category for the pie chart
+    $countByCategory = $workouts->groupBy('category')->map(function ($group) {
+        return $group->count();
+    })->toArray();
+
+    // Calculate total weight lifted over time (grouped by date)
+    $totalWeightOverTime = $workouts->groupBy(function ($workout) {
+        return $workout->created_at->format('Y-m-d'); // Group by date (e.g., 2023-08-21)
+    })->map(function ($group) {
+        return $group->sum('weight');
+    })->toArray();
+
+    return view('workouts.analytics', compact('totalWeightByCategory', 'countByCategory', 'totalWeightOverTime'));
+}
+
 
 
     public function progress($exercise)
