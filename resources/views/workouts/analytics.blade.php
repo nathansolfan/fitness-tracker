@@ -3,6 +3,8 @@
 <head>
     <title>Workout Analytics</title>
     @vite(['resources/js/app.js'])
+    @vite('resources/css/app.css')
+
     <style>
         #weightChart, #categoryChart, #weightOverTimeChart {
             width: 400px;  /* Set fixed width for all charts */
@@ -14,6 +16,9 @@
 <body>
     <h1>Workout Analytics</h1>
     <h2>Test</h2>
+    <h1 class="text-3xl font-bold underline">
+        Hello world!
+      </h1>
 
     {{-- Bar chart for total weight by category --}}
     @if(!empty($totalWeightByCategory) && is_array($totalWeightByCategory) && count($totalWeightByCategory) > 0)
