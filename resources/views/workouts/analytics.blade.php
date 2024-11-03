@@ -13,6 +13,7 @@
 </head>
 <body>
     <h1>Workout Analytics</h1>
+    <h2>Test</h2>
 
     {{-- Bar chart for total weight by category --}}
     @if(!empty($totalWeightByCategory) && is_array($totalWeightByCategory) && count($totalWeightByCategory) > 0)
