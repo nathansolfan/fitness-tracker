@@ -21,6 +21,14 @@
         <p>No workout data available to display the analytics chart.</p>
     @endif
 
+    {{-- Line chart for total weight lifted over time --}}
+@if(!empty($totalWeightOverTime) && count($totalWeightOverTime) > 0)
+<canvas id="weightOverTimeChart"></canvas>
+@else
+<p>No data available for total weight over time.</p>
+@endif
+
+
     {{-- Pie chart for count by category --}}
     @if(!empty($countByCategory) && is_array($countByCategory) && count($countByCategory) > 0)
         <canvas id="categoryChart"></canvas>
