@@ -28,17 +28,21 @@
                 const labels = {!! json_encode($dates) !!};
                 const data = {!! json_encode($weights) !!};
 
-                console.log('Labels:', labels);  // Debug to check labels
-                console.log('Data:', data);      // Debug to check data
+                console.log('Labels:', labels);
+                console.log('Data:', data);
 
-                // Check if data is empty before creating the chart
                 if (labels.length === 0 || data.length === 0) {
                     console.error('No data available to render the chart.');
                     return;
                 }
 
-                const ctx = document.getElementById('progressChart')?.getContext('2d');
+                // Calculate average, max, and min weights
+                const totalWeight = data.reduce((sum, weight) => sum + weight, 0);
+                const averageWeight = totalWeight / data.length;
+                const maxWeight = Math.max(...data);
+                const minWeight = Math.min(...data);
 
+                const ctx = document.getElementById('progressChart')?.getContext('2d');
                 if (!ctx) {
                     console.error('Canvas element not found. Check the ID or ensure it exists in the DOM.');
                     return;
@@ -48,20 +52,56 @@
                     type: 'line',
                     data: {
                         labels: labels,
-                        datasets: [{
-                            label: '{{ $exercise }} Weight Over Time',
-                            data: data,
-                            fill: false,
-                            borderColor: 'rgba(75, 192, 192, 1)',
-                            tension: 0.1
-                        }]
+                        datasets: [
+                            {
+                                label: '{{ $exercise }} Weight Over Time',
+                                data: data,
+                                fill: false,
+                                borderColor: 'rgba(75, 192, 192, 1)',
+                                tension: 0.1
+                            },
+                            {
+                                label: 'Average Weight',
+                                data: Array(labels.length).fill(averageWeight),
+                                fill: false,
+                                borderColor: 'rgba(255, 165, 0, 0.8)',
+                                borderDash: [5, 5],
+                                pointRadius: 0
+                            },
+                            {
+                                label: 'Max Weight',
+                                data: Array(labels.length).fill(maxWeight),
+                                fill: false,
+                                borderColor: 'rgba(255, 99, 132, 0.8)',
+                                borderDash: [5, 5],
+                                pointRadius: 0
+                            },
+                            {
+                                label: 'Min Weight',
+                                data: Array(labels.length).fill(minWeight),
+                                fill: false,
+                                borderColor: 'rgba(54, 162, 235, 0.8)',
+                                borderDash: [5, 5],
+                                pointRadius: 0
+                            }
+                        ]
                     },
                     options: {
                         responsive: true,
                         maintainAspectRatio: false,
                         scales: {
                             y: {
-                                beginAtZero: true
+                                beginAtZero: true,
+                                title: {
+                                    display: true,
+                                    text: 'Weight (kg)'
+                                }
+                            },
+                            x: {
+                                title: {
+                                    display: true,
+                                    text: 'Date'
+                                }
                             }
                         },
                         plugins: {
@@ -69,7 +109,7 @@
                                 position: 'top',
                                 labels: {
                                     font: {
-                                        size: 12 // Smaller font size for labels
+                                        size: 12
                                     }
                                 }
                             }
@@ -82,5 +122,6 @@
             }
         });
     </script>
+
 </body>
 </html>
