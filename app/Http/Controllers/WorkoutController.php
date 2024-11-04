@@ -143,6 +143,14 @@ class WorkoutController extends Controller
         // weekly and montly ananyltics data
         $weeklyData = [];
         $montly = [];
+
+        foreach ($workoutGrouped as $exercise => $sessions) {
+            // group sessions by week and calculate average weight, sets and reps
+            $sessionByWeek = $sessions->groupBy(function ($session) {
+                return $session->created_at->startOfWeek()->format('Y-m-d');
+            });
+
+        }
     }
 
 }
