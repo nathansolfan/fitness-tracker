@@ -91,28 +91,28 @@ class WorkoutController extends Controller
 
     // ANALYTICS Controller
     public function analytics()
-{
-    $workouts = Workout::all();
+    {
+        $workouts = Workout::all();
 
-    // Calculate total weight by category
-    $totalWeightByCategory = $workouts->groupBy('category')->map(function ($group) {
-        return $group->sum('weight');
-    })->toArray();
+        // Calculate total weight by category
+        $totalWeightByCategory = $workouts->groupBy('category')->map(function ($group) {
+            return $group->sum('weight');
+        })->toArray();
 
-    // Count exercises by category for the pie chart
-    $countByCategory = $workouts->groupBy('category')->map(function ($group) {
-        return $group->count();
-    })->toArray();
+        // Count exercises by category for the pie chart
+        $countByCategory = $workouts->groupBy('category')->map(function ($group) {
+            return $group->count();
+        })->toArray();
 
-    // Calculate total weight lifted over time (grouped by date)
-    $totalWeightOverTime = $workouts->groupBy(function ($workout) {
-        return $workout->created_at->format('Y-m-d'); // Group by date (e.g., 2023-08-21)
-    })->map(function ($group) {
-        return $group->sum('weight');
-    })->toArray();
+        // Calculate total weight lifted over time (grouped by date)
+        $totalWeightOverTime = $workouts->groupBy(function ($workout) {
+            return $workout->created_at->format('Y-m-d'); // Group by date (e.g., 2023-08-21)
+            })->map(function ($group) {
+                return $group->sum('weight');
+            })->toArray();
 
-    return view('workouts.analytics', compact('totalWeightByCategory', 'countByCategory', 'totalWeightOverTime'));
-}
+            return view('workouts.analytics', compact('totalWeightByCategory', 'countByCategory', 'totalWeightOverTime'));
+        }
 
 
 
@@ -130,10 +130,19 @@ class WorkoutController extends Controller
 
         // Return the view with data for the chart
         return view('workouts.progress', compact('exercise', 'dates', 'weights'));
+    }
 
 
+    public function getAnalyticsData()
+    {
+        $workouts = Workout::all();
 
+        // group workots by exercise
+        $workoutGrouped = $workouts->groupBy('exercise');
 
+        // weekly and montly ananyltics data
+        $weeklyData = [];
+        $montly = [];
     }
 
 }
