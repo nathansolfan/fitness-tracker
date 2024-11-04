@@ -145,6 +145,7 @@ class WorkoutController extends Controller
         $montly = [];
 
         foreach ($workoutGrouped as $exercise => $sessions) {
+
             // group sessions by week and calculate average weight, sets and reps
             $sessionByWeek = $sessions->groupBy(function ($session) {
                 return $session->created_at->startOfWeek()->format('Y-m-d');
@@ -157,6 +158,13 @@ class WorkoutController extends Controller
                     'average_reps' => $weeklySessions->avg('reps'),
                 ];
             }
+
+            // Group sessions by month and calculate average weight, sets, and reps
+            $sessionByMonth = $sessions->groupBy(function ($session) {
+
+                return $session->created_at->format('Y-m');
+            });
+
 
 
         }
