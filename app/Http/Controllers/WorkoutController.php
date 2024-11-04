@@ -150,6 +150,15 @@ class WorkoutController extends Controller
                 return $session->created_at->startOfWeek()->format('Y-m-d');
             });
 
+            foreach ($sessionByWeek as $week => $weeklySessions) {
+                $weeklyData[$exercise][$week] = [
+                    'average_weight' => $weeklySessions->avg('weight'),
+                    'average_sets' => $weeklySessions->avg('sets'),
+                    'average_reps' => $weeklySessions->avg('reps'),
+                ];
+            }
+
+
         }
     }
 
