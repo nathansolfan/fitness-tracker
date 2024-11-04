@@ -166,16 +166,14 @@ class WorkoutController extends Controller
             });
 
             foreach ($sessionByMonth as $month => $monthlySessions) {
-                $monthlyData = [$exercise][$month] = [
+                $monthlyData[$exercise][$month] = [
                     'average_weight' => $monthlySessions->avg('weight'),
                     'average_sets' => $monthlySessions->avg('sets'),
                     'average_reps' => $monthlySessions->avg('reps'),
                 ];
             }
-
-
-
         }
+        return view('workouts.analytics', compact('weeklyData', 'monthlyData'));
     }
 
 }
