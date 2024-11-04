@@ -165,6 +165,14 @@ class WorkoutController extends Controller
                 return $session->created_at->format('Y-m');
             });
 
+            foreach ($sessionByMonth as $month => $monthlySessions) {
+                $monthlyData = [$exercise][$month] = [
+                    'average_weight' => $monthlySessions->avg('weight'),
+                    'average_sets' => $monthlySessions->avg('sets'),
+                    'average_reps' => $monthlySessions->avg('reps'),
+                ];
+            }
+
 
 
         }
