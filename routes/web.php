@@ -21,3 +21,10 @@ Route::get('/workouts/progress/{exercise}', [WorkoutController::class,'progress'
 
 
 Route::resource('workouts', WorkoutController::class);
+
+
+
+// Livewire Route
+Route::get('/workouts/progress/{exercise}', function ($exercise) {
+    $dates = []
+})
