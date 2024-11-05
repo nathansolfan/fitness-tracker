@@ -1,24 +1,3 @@
-<?php
-
-namespace App\Http\Livewire;
-
-use Livewire\Component;
-
-class ProgressChart extends Component
-{
-    public $exercise;
-    public $dates = [];
-    public $weights = [];
-
-    public function mount($exercise, $dates, $weights)
-    {
-        $this->exercise = $exercise;
-        $this->dates = $dates;
-        $this->weights = $weights;
-    }
-
-    public function render()
-    {
-        return view('livewire.progress-chart');
-    }
-}
+<div>
+    {{-- The best athlete wants his opponent at his best. --}}
+</div>
