@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\WorkoutController;
+use App\Livewire\ProgressChart;
 use Illuminate\Support\Facades\Route;
 
 // Route::get('/', function () {
@@ -25,6 +26,4 @@ Route::resource('workouts', WorkoutController::class);
 
 
 // Livewire Route
-Route::get('/workouts/progress/{exercise}', function ($exercise) {
-    $dates = []
-})
+Route::get('/workouts/progress/{exercise}', ProgressChart::class)->name('workouts.progress');
